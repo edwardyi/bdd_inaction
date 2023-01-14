@@ -1,0 +1,42 @@
+version: '3'
+
+services:
+  php:
+    image: php:8.1.12-fpm
+    volumes:
+      - ./app:/var/www/html
+    ports:
+        - "9001:9000"
+    environment:
+      - PHP_EXTENSION_SWOOLE=1
+      - PHP_EXTENSION_GRPC=1
+    links:
+      - nginx
+      - mysql
+      - redis
+
+  nginx:
+    image: nginx:1.23.3
+    ports:
+      - "8023:80"
+    volumes:
+      - ./app:/var/www/html
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf
+
+  redis:
+    image: redis:6.2.6
+
+  mysql:
+    image: mysql:8.0.31
+    environment:
+      MYSQL_ROOT_PASSWORD: bdd
+      MYSQL_DATABASE: bdd
+      MYSQL_USER: bdd
+      MYSQL_PASSWORD: bdd
+    ports:
+      - "3323:3306"
+    volumes:
+      - bdd-db-data:/var/lib/mysql
+
+volumes:
+  bdd-db-data:
