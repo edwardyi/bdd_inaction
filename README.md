@@ -16,6 +16,13 @@
 - developers
 - QAs
 
+### Git Remove Submodule
+
+```cmd=
+git rm --cached ./{appName}/{projectName}
+git submodule deinit ./{appName}/{projectName}
+```
+
 ### Reference
 
 https://codeception.com/docs/BDD
