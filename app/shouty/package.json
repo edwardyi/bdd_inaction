@@ -11,6 +11,7 @@
   "license": "ISC",
   "devDependencies": {
     "cucumber": "^6.0.5",
-    "cucumber-pretty": "^6.0.0"
+    "cucumber-pretty": "^6.0.0",
+    "hamjest": "^3.7.3"
   }
 }
