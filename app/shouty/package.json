@@ -12,6 +12,9 @@
   "devDependencies": {
     "cucumber": "^6.0.5",
     "cucumber-pretty": "^6.0.0",
+    "mocha": "^10.2.0"
+  },
+  "dependencies": {
     "hamjest": "^3.7.3"
   }
 }

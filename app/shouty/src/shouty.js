@@ -2,7 +2,9 @@ class Person {
   constructor(network) {
     this.messages = []
     this.network = network
-    
+
+    this.messages.push(network) 
+
     this.network.subscribe(this)
   }
   moveTo(distance) {
@@ -10,7 +12,10 @@ class Person {
   }
 
   shout(message) {
-    this.messages.broadcasts(message)
+    this.messages.forEach(function (rowMessage) {
+      rowMessage.broadcasts(message)
+    });
+    
   }
 
   hear(message) {

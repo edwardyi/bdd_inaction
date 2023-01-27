@@ -30,7 +30,7 @@ WORKDIR /var/www/html
 COPY . ./
 
 # install npm
-RUN cd ./app/static/ && npm install
+# RUN cd ./app/static/ && npm install
 
 # install grpc
 # RUN git clone -b v1.33.2 https://github.com/grpc/grpc \
@@ -44,4 +44,26 @@ RUN cd ./app/static/ && npm install
 CMD [ "php", "index.php" ]
 
 EXPOSE 9000
+
+# Install Selenium, Firefox, and Xvfb
+RUN apt-get update && apt-get install -y \
+    chromium \
+    xvfb \
+    openjdk-11-jre-headless \
+    wget \
+    && wget https://github.com/mozilla/geckodriver/releases/download/v0.29.1/geckodriver-v0.29.1-linux64.tar.gz \
+    && tar -xf geckodriver-v0.29.1-linux64.tar.gz -C /usr/local/bin/ \
+    && rm geckodriver-v0.29.1-linux64.tar.gz \
+    && wget https://selenium-release.storage.googleapis.com/3.141/selenium-server-standalone-3.141.59.jar \
+    && mv selenium-server-standalone-3.141.59.jar /usr/local/bin/selenium-server-standalone.jar
+
+# Add a script to start Selenium
+COPY start-selenium.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/start-selenium.sh
+
+# Expose the default Selenium port
+EXPOSE 4444
+
+# Run the start script when the container starts
+CMD ["/usr/local/bin/start-selenium.sh"]
 

@@ -14,6 +14,9 @@ const default_range = 100
 Before(function () {
   this.people = {}
   this.network = new Network(default_range)
+
+  // add sean to people array
+  this.people['sean'] = new Person(this.network)
 })
 
 Given('the range is {int}', function (range) {
